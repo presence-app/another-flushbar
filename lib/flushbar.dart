@@ -832,7 +832,12 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
 
   Widget? _getMainActionButton() {
     if (widget.mainButton != null) {
-      return widget.mainButton;
+      return GestureDetector(
+          onTap: () {
+            dispose();
+            Navigator.of(context).pop();
+          },
+          child: widget.mainButton);
     } else {
       return null;
     }
