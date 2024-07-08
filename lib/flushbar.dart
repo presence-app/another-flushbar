@@ -835,8 +835,9 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
       print('flushBar main button tapped');
       return GestureDetector(
           onTap: () {
+            final flushbar = widget.flushbarRoute?.flushbar;
+            if (flushbar != null) widget.onTap?.call(flushbar);
             widget.dismiss();
-            widget.onTap;
           },
           child: widget.mainButton);
     } else {
