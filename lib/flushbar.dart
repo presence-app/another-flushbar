@@ -720,14 +720,14 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
                   right: 8.0,
                   bottom: widget.padding.bottom,
                 ),
-                child: widget.messageText != null
-                  ? widget.messageText
-                  : widget.text != null
-                  ? Text(
-                  '${widget.text!} $startTime',
-                  style: TextStyle(color: Colors.white),
-                  )
-                  : _getDefaultNotificationText(),
+                child: widget.text != null
+                    ? Text(
+                      '${widget.text!} $startTime',
+                      style: TextStyle(color: widget.messageColor),
+                    )
+                    :widget.messageText != null
+                    ? widget.messageText
+                    : _getDefaultNotificationText(),
               ),
             ],
           ),
