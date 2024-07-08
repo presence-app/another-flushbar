@@ -79,7 +79,9 @@ class Flushbar<T> extends StatefulWidget {
   /// The title text size displayed to the user
   final double? titleSize;
 
-  /// Add a count down to messageText
+  /// Add a count down to String text, the count down will count down
+  /// the [duration] value. Note: when [showCountDown] is used, [text]
+  /// is required to show the text + count down.
   final bool? showCountDown;
 
   /// Add text message passed as a String
@@ -612,7 +614,14 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
                   right: widget.padding.right,
                   bottom: widget.padding.bottom,
                 ),
-                child: widget.messageText ?? _getDefaultNotificationText(),
+                child: widget.text != null
+                    ? Text(
+                      '${widget.text!} ($startTime)',
+                      style: TextStyle(color: widget.messageColor),
+                      )
+                    : widget.messageText != null
+                    ? widget.messageText
+                    : _getDefaultNotificationText(),
               ),
             ],
           ),
@@ -648,7 +657,14 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
                   right: widget.padding.right,
                   bottom: widget.padding.bottom,
                 ),
-                child: widget.messageText ?? _getDefaultNotificationText(),
+                child: widget.text != null
+                    ? Text(
+                      '${widget.text!} ($startTime)',
+                      style: TextStyle(color: widget.messageColor),
+                      )
+                    : widget.messageText != null
+                    ? widget.messageText
+                    : _getDefaultNotificationText(),
               ),
             ],
           ),
@@ -680,7 +696,14 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
                   right: 8.0,
                   bottom: widget.padding.bottom,
                 ),
-                child: widget.messageText ?? _getDefaultNotificationText(),
+                child: widget.text != null
+                    ? Text(
+                      '${widget.text!} ($startTime)',
+                      style: TextStyle(color: widget.messageColor),
+                      )
+                    : widget.messageText != null
+                    ? widget.messageText
+                    : _getDefaultNotificationText(),
               ),
             ],
           ),
@@ -722,10 +745,10 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
                 ),
                 child: widget.text != null
                     ? Text(
-                      '${widget.text!} $startTime',
+                      '${widget.text!} ($startTime)',
                       style: TextStyle(color: widget.messageColor),
-                    )
-                    :widget.messageText != null
+                      )
+                    : widget.messageText != null
                     ? widget.messageText
                     : _getDefaultNotificationText(),
               ),
