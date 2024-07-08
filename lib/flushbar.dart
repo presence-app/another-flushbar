@@ -836,6 +836,7 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
       return GestureDetector(
           onTap: () {
             widget.dismiss();
+            widget.onTap;
           },
           child: widget.mainButton);
     } else {
