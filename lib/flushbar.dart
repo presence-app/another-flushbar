@@ -334,7 +334,7 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
           } else {
             startTime =
                 startTime - 1;
-            setState(() {});
+            if (mounted) setState(() {});
           }
         },
       );
