@@ -25,6 +25,8 @@ class Flushbar<T> extends StatefulWidget {
       this.messageColor,
       this.titleText,
       this.messageText,
+      this.text,
+      this.showCountDown,
       this.icon,
       this.shouldIconPulse = true,
       this.maxWidth,
@@ -76,6 +78,12 @@ class Flushbar<T> extends StatefulWidget {
 
   /// The title text size displayed to the user
   final double? titleSize;
+
+  /// Add a count down to messageText
+  final bool? showCountDown;
+
+  /// Add text message passed as a String
+  final String? text;
 
   /// Color title displayed to the user ? default is black
   final Color? titleColor;
@@ -308,6 +316,29 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
 
   CurvedAnimation? _progressAnimation;
 
+  late int startTime;
+
+  Timer? _timer;
+
+  void startTimer() {
+    if (widget.duration != null) {
+      const oneSec = const Duration(seconds: 1);
+      startTime = widget.duration!.inSeconds;
+      _timer = new Timer.periodic(
+        oneSec,
+            (Timer _timer) {
+          if (startTime == 0) {
+            _timer.cancel();
+          } else {
+            startTime =
+                startTime - 1;
+            setState(() {});
+          }
+        },
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -334,6 +365,11 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
 
     _focusNode = FocusScopeNode();
     _focusAttachment = _focusNode!.attach(context);
+    if (widget.showCountDown != null
+        && widget.text != null
+        && widget.duration != null) {
+      startTimer();
+    }
   }
 
   @override
@@ -684,7 +720,14 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
                   right: 8.0,
                   bottom: widget.padding.bottom,
                 ),
-                child: widget.messageText ?? _getDefaultNotificationText(),
+                child: widget.messageText != null
+                  ? widget.messageText
+                  : widget.text != null
+                  ? Text(
+                  '${widget.text!} $startTime',
+                  style: TextStyle(color: Colors.white),
+                  )
+                  : _getDefaultNotificationText(),
               ),
             ],
           ),

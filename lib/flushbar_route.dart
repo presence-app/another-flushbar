@@ -226,7 +226,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
   /// The animation controller that the route uses to drive the transitions.
   ///
   /// The animation itself is exposed by the [animation] property.
-  @protected
+
   AnimationController? get controller => _controller;
   AnimationController? _controller;
 
