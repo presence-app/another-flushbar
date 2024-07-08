@@ -26,10 +26,10 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
   })  : _builder = Builder(builder: (BuildContext innerContext) {
           return GestureDetector(
             onTap: () {
-              flushbar.onTap != null ? () {
+            //  flushbar.onTap != null ? () {
                 flushbar.onTap!(flushbar);
                 flushbar.dismiss();
-              } : flushbar.dismiss();
+           //   } : null;
             },
             child: flushbar,
           );
