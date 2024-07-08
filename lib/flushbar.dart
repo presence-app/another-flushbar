@@ -832,10 +832,10 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
 
   Widget? _getMainActionButton() {
     if (widget.mainButton != null) {
-      print('flushBar main button tapped');
       return GestureDetector(
-          behavior: HitTestBehavior.translucent,
+          behavior: HitTestBehavior.opaque,
           onTap: () {
+            print('flushBar main button tapped');
             final flushbar = widget.flushbarRoute?.flushbar;
             if (flushbar != null) {
               widget.onTap?.call(flushbar);
